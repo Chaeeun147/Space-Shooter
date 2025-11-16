@@ -5,12 +5,18 @@ var plBullet := preload("res://Bullet/bullet.tscn")
 
 @onready var sprite := $Sprite2D
 @onready var firingPositions := $FiringPositions
-@onready var fireDelayTimer : = $FireDelayTime
+@onready var fireDelayTimer := $FireDelayTime
+@onready var invincibilityTimer := $InvinsibilityTimer
+@onready var shieldSprite := $Shield
 
 @export var speed: float = 100
 @export var fireDelay: float = 0.1
 @export var life: int = 3
+@export var damageInvinsibilityTime := 2.0
 var vel := Vector2(0,0)
+
+func _ready():
+	shieldSprite.visible = false
 
 func _process(delta):
 	if vel.x <0:
@@ -48,9 +54,18 @@ func _physics_process(delta):
 	position.y = clamp(position.y, 0, viewRect.size.y)
 
 func damage(amount: int):
+	if !invincibilityTimer.is_stopped():
+		return
+		
+	invincibilityTimer.start(damageInvinsibilityTime)
+	shieldSprite.visible = true
+	
 	life -= amount
 	print("Player Life = %s" % life)
 	
 	if life <= 0:
 		print("PLAYER DIED")
 		queue_free()
+
+func _on_invinsibility_timer_timeout() -> void:
+	shieldSprite.visible = false
