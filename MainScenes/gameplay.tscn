@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://oabjqbwlxkox"]
+[gd_scene load_steps=5 format=3 uid="uid://oabjqbwlxkox"]
 
 [ext_resource type="PackedScene" uid="uid://dj8hfhu1pgfgd" path="res://Player/player.tscn" id="1_dmsrt"]
 [ext_resource type="Texture2D" uid="uid://c8x4dhjg1e4uy" path="res://Textures/backgroundColor.png" id="1_ewbf5"]
 [ext_resource type="Texture2D" uid="uid://c812rq8blosf" path="res://Textures/starBig.png" id="2_0grbb"]
+[ext_resource type="PackedScene" uid="uid://qrf64kycnj4v" path="res://Meteor/meteor.tscn" id="4_3tnba"]
 
 [node name="Gameplay" type="Node2D"]
 
@@ -27,3 +28,6 @@ scale_amount_max = 0.7
 
 [node name="Player" parent="." instance=ExtResource("1_dmsrt")]
 position = Vector2(220, 198)
+
+[node name="Meteor" parent="." instance=ExtResource("4_3tnba")]
+position = Vector2(102, 211)
